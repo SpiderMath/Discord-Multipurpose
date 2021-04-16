@@ -1,0 +1,30 @@
+{
+  "name": "discord-multipurpose",
+  "version": "0.1.0",
+  "description": "This is a Utilitarian Package for a lot of your Discord Needs!",
+  "main": "./Dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SpiderMath/Discord-Multipurpose.git"
+  },
+  "keywords": [
+    "discord",
+    "discord.js",
+    "discord-multipurpose",
+    "multipurpose-discord"
+  ],
+  "author": "SpiderMath",
+  "license": "AGPL-3.0",
+  "bugs": {
+    "url": "https://github.com/SpiderMath/Discord-Multipurpose/issues"
+  },
+  "homepage": "https://github.com/SpiderMath/Discord-Multipurpose#readme",
+  "devDependencies": {
+    "@types/node": "^14.14.41",
+    "@typescript-eslint/parser": "^4.22.0",
+    "eslint": "^7.24.0"
+  }
+}
