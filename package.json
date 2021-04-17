@@ -1,6 +1,6 @@
 {
   "name": "discord-multipurpose",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "This is a Utilitarian Package for a lot of your Discord Needs!",
   "main": "./Library/Source/Index.js",
   "scripts": {
@@ -28,7 +28,6 @@
     "eslint": "^7.24.0"
   },
   "dependencies": {
-    "discord-multipurpose": "^1.0.4",
     "discord.js": "^12.5.3"
   }
 }
