@@ -6,11 +6,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const package_json_1 = require("../package.json");
 const Fun_1 = __importDefault(require("./Classes/Fun"));
 const Minigames_1 = __importDefault(require("./Classes/Minigames"));
+const Animals_1 = __importDefault(require("./Classes/Animals"));
 class DiscordMultipurpose {
 }
 exports.default = DiscordMultipurpose;
 DiscordMultipurpose.version = package_json_1.version;
 DiscordMultipurpose.Fun = Fun_1.default;
 DiscordMultipurpose.MiniGames = Minigames_1.default;
+DiscordMultipurpose.Animals = Animals_1.default;
 ;
 //# sourceMappingURL=Index.js.map

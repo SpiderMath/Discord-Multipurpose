@@ -8,7 +8,11 @@ export default class Util {
 		return start + Math.floor(Math.random() * (end - start + 1));
 	}
 
-	static async coinFlip(message: Message, embed: boolean, embedColour?: string) {
+	static async coinFlip(message: Message, embed: boolean = false, embedColour: string = "GREEN") {
+		if(typeof embed !== "boolean") throw new TypeError("Embed has to be a boolean!");
+
+		if(typeof embedColour !== "string") throw new TypeError("EmbedColour has to be a string!");
+
 		const bool = message.member?.hasPermission("ATTACH_FILES");
 
 		let msg: Message;
@@ -24,7 +28,7 @@ export default class Util {
 
 			if(embed) {
 				const FlipEmbed = new MessageEmbed()
-					.setColor(embedColour || "GREEN")
+					.setColor(embedColour)
 					.setTitle("Coinflip Result")
 					.setDescription(`<@!${message.author.id}>, your coin landed on ${flipResponse}!`);
 
