@@ -1,8 +1,8 @@
 {
     "name": "discord-multipurpose",
-    "version": "0.1.0",
+    "version": "1.0.6",
     "description": "This is a Utilitarian Package for a lot of your Discord Needs!",
-    "main": "./Dist/index.js",
+    "main": "./Library/Source/Index.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1"
     },
@@ -28,6 +28,7 @@
         "eslint": "^7.24.0"
     },
     "dependencies": {
+        "canvas": "^2.7.0",
         "discord.js": "^12.5.3"
     }
 }
