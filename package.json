@@ -2,7 +2,7 @@
   "name": "discord-multipurpose",
   "version": "2.0.0",
   "description": "A simple package to help in your discord.js needs!",
-  "main": "index.js",
+  "main": "./Dist/Source/Main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/SpiderMath/Discord-Multipurpose#readme",
   "dependencies": {
+    "@types/node": "^15.0.3",
     "@typescript-eslint/parser": "^4.23.0",
     "eslint": "^7.26.0",
     "typescript": "^4.2.4"
