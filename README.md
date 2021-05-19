@@ -46,7 +46,7 @@ console.log(Multipurpose.DiscordEmoji.food.apple);
 			- Inverts the Image colours
 			- **Parameters**:
 				- avatar *(Type: string | Buffer)*: The image, whose colours you want to invert
-				<img src="/Tests/Image/Invert.png" alt="invert">
+				<img src="/Tests/Image/invert.png" alt="invert">
 	- Example
 		```js
 		const Multipurpose = require("discord-multipurpose");
