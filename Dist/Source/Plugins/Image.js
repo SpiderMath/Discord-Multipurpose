@@ -15,6 +15,20 @@ canvas_1.registerFont(path_1.join(__dirname, "../../../Assets/Fonts/WHITNEY_MEDI
     style: "Normal",
 });
 class Image {
+    /**
+     * @param avatar1 The avatar of the user who is replying
+     * @param avatar2 The avatar of the user being replied to
+     * @param username1 The nickname/username of the user who is replying
+     * @param username2 The nickname/username of the user who is being replied to
+     * @param messageText The content of the sent message
+     * @param replyText The content of the replied message
+     * @param hex1 The colour of the role of the replying user
+     * @param hex2 The colour of the role of the replying user
+     * @param mode The mode you want the stuff to be displayed in
+     * @default hex1 #ffffff
+     * @default hex2 #ffffff
+     * @default mode dark
+     */
     static async fakeReply(avatar1, avatar2, messageText, replyText, username1, username2, hex1 = "#FFFFFF", hex2 = "#FFFFFF", mode = "dark") {
         if (!avatar1)
             throw new Error("First avatar was not provided!");
@@ -104,6 +118,9 @@ class Image {
         ctx.restore();
         return canvas.toBuffer();
     }
+    /**
+     * @param avatar The avatar of the user who will be appearing in the ping
+     */
     static async ping(avatar) {
         if (!avatar)
             throw new Error("avatar not provided");
