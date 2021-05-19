@@ -26,7 +26,7 @@ export default class Image {
 	 * @default hex2 #ffffff
 	 * @default mode dark
 	 */
-	public static async fakeReply(avatar1: string, avatar2: string, replyText: string, messageText: string, username1: string, username2: string, hex1: string = "#FFFFFF", hex2: string = "#FFFFFF", mode: "light" | "dark" = "dark") {
+	public static async fakeReply(avatar1: string | Buffer, avatar2: string | Buffer, replyText: string, messageText: string, username1: string, username2: string, hex1: string = "#FFFFFF", hex2: string = "#FFFFFF", mode: "light" | "dark" = "dark") {
 
 		if (!avatar1) throw new Error("First avatar was not provided!");
 		if (!avatar2) throw new Error("Second avatar was not provided!");
@@ -131,7 +131,7 @@ export default class Image {
 	/**
 	 * @param avatar The avatar of the user who will be appearing in the ping
 	 */
-	public static async ping(avatar: string) {
+	public static async ping(avatar: string | Buffer) {
 		if(!avatar) throw new Error("avatar not provided");
 
 		const image = await loadImage(avatar);
@@ -141,6 +141,33 @@ export default class Image {
 
 		ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
 		ctx.drawImage(pongy, 0, 0, canvas.width, canvas.height);
+
+		return canvas.toBuffer();
+	}
+
+	/**
+	 * @param avatar The avatar of the user, whose colour you want to invert
+	*/
+	public static async invert(avatar: string) {
+		if(!avatar) throw new Error("avatar not provided");
+
+		const image = await loadImage(avatar);
+
+		const canvas = createCanvas(image.width, image.height);
+		const ctx = canvas.getContext("2d");
+
+		ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
+
+		const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+
+		for (let i = 0; i < imgData.data.length; i += 4) {
+			imgData.data[i] = 255 - imgData.data[i];
+			imgData.data[i + 1] = 255 - imgData.data[i + 1];
+			imgData.data[i + 2] = 255 - imgData.data[i + 2];
+			imgData.data[i + 3] = 255;
+		}
+
+		ctx.putImageData(imgData, 0, 0);
 
 		return canvas.toBuffer();
 	}

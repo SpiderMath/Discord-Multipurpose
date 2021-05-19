@@ -41,6 +41,12 @@ console.log(Multipurpose.DiscordEmoji.food.apple);
 				- mode *(Type: string, Options: 'light', 'dark', Required: false, default: dark)*: The mode you want the stuff to be displayed in
 				<img src="/Tests/Image/FakeReply-light.png" alt="FakeReply-light">
 				<img src="/Tests/Image/FakeReply-dark.png" alt="FakeReply-dark">
+
+		- **invert**:
+			- Inverts the Image colours
+			- **Parameters**:
+				- avatar *(Type: string | Buffer)*: The image, whose colours you want to invert
+				<img src="/Tests/Image/Invert.png" alt="invert">
 	- Example
 		```js
 		const Multipurpose = require("discord-multipurpose");

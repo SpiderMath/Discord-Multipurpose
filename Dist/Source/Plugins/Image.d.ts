@@ -14,10 +14,14 @@ export default class Image {
      * @default hex2 #ffffff
      * @default mode dark
      */
-    static fakeReply(avatar1: string, avatar2: string, replyText: string, messageText: string, username1: string, username2: string, hex1?: string, hex2?: string, mode?: "light" | "dark"): Promise<Buffer>;
+    static fakeReply(avatar1: string | Buffer, avatar2: string | Buffer, replyText: string, messageText: string, username1: string, username2: string, hex1?: string, hex2?: string, mode?: "light" | "dark"): Promise<Buffer>;
     /**
      * @param avatar The avatar of the user who will be appearing in the ping
      */
-    static ping(avatar: string): Promise<Buffer>;
+    static ping(avatar: string | Buffer): Promise<Buffer>;
+    /**
+     * @param avatar The avatar of the user, whose colour you want to invert
+    */
+    static invert(avatar: string): Promise<Buffer>;
 }
 //# sourceMappingURL=Image.d.ts.map

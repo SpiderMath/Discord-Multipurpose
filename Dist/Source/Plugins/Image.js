@@ -132,6 +132,26 @@ class Image {
         ctx.drawImage(pongy, 0, 0, canvas.width, canvas.height);
         return canvas.toBuffer();
     }
+    /**
+     * @param avatar The avatar of the user, whose colour you want to invert
+    */
+    static async invert(avatar) {
+        if (!avatar)
+            throw new Error("avatar not provided");
+        const image = await canvas_1.loadImage(avatar);
+        const canvas = canvas_1.createCanvas(image.width, image.height);
+        const ctx = canvas.getContext("2d");
+        ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
+        const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        for (let i = 0; i < imgData.data.length; i += 4) {
+            imgData.data[i] = 255 - imgData.data[i];
+            imgData.data[i + 1] = 255 - imgData.data[i + 1];
+            imgData.data[i + 2] = 255 - imgData.data[i + 2];
+            imgData.data[i + 3] = 255;
+        }
+        ctx.putImageData(imgData, 0, 0);
+        return canvas.toBuffer();
+    }
 }
 exports.default = Image;
 ;
