@@ -1,0 +1,10 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+function GetDiscordTime(time = new Date()) {
+    const date = time && time instanceof Date ? time : new Date();
+    const hours = date.getHours() < 10 ? `0${date.getHours()}` : date.getHours();
+    const minutes = date.getMinutes() < 10 ? `0${date.getMinutes()}` : date.getMinutes();
+    return `Today at ${hours}:${minutes}`;
+}
+exports.default = GetDiscordTime;
+//# sourceMappingURL=GetDiscordTime.js.map

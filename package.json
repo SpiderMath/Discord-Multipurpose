@@ -1,6 +1,6 @@
 {
   "name": "discord-multipurpose",
-  "version": "2.0.3",
+  "version": "2.0.2",
   "description": "A simple package to help in your discord.js needs!",
   "main": "./Dist/Source/Main.js",
   "scripts": {
@@ -23,9 +23,7 @@
     "typescript": "^4.2.4"
   },
   "dependencies": {
-    "canvacord": "^5.2.0",
-    "discord.js": "^12.5.3",
-    "noodles-wrapper": "^1.4.6",
-    "quick.db": "^7.1.3"
+    "@canvacord/emoji-parser": "^1.0.1",
+    "canvas": "^2.8.0"
   }
 }
