@@ -104,6 +104,17 @@ class Image {
         ctx.restore();
         return canvas.toBuffer();
     }
+    static async ping(avatar) {
+        if (!avatar)
+            throw new Error("avatar not provided");
+        const image = await canvas_1.loadImage(avatar);
+        const pongy = await canvas_1.loadImage(path_1.join(__dirname, "../../../../../../../Desktop/ping.png"));
+        const canvas = canvas_1.createCanvas(400, 400);
+        const ctx = canvas.getContext("2d");
+        ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
+        ctx.drawImage(pongy, 0, 0, canvas.width, canvas.height);
+        return canvas.toBuffer();
+    }
 }
 exports.default = Image;
 ;

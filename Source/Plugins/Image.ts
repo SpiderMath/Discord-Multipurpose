@@ -113,4 +113,18 @@ export default class Image {
 
 		return canvas.toBuffer();
 	}
+
+	public static async ping(avatar: string) {
+		if(!avatar) throw new Error("avatar not provided");
+
+		const image = await loadImage(avatar);
+		const pongy = await loadImage(join(__dirname, "../../../../../../../Desktop/ping.png"));
+		const canvas = createCanvas(400, 400);
+		const ctx = canvas.getContext("2d");
+
+		ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
+		ctx.drawImage(pongy, 0, 0, canvas.width, canvas.height);
+
+		return canvas.toBuffer();
+	}
 };
