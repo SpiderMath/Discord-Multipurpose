@@ -24,7 +24,8 @@
   },
   "dependencies": {
     "@canvacord/emoji-parser": "^1.0.1",
-    "canvas": "^2.8.0"
+    "canvas": "^2.8.0",
+    "discord.js": "^12.5.3"
   },
   "files": [
     "Dist/**/*/",
