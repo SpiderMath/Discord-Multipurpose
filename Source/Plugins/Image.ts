@@ -118,7 +118,7 @@ export default class Image {
 		if(!avatar) throw new Error("avatar not provided");
 
 		const image = await loadImage(avatar);
-		const pongy = await loadImage(join(__dirname, "../../../../../../../Desktop/ping.png"));
+		const pongy = await loadImage(join(__dirname, "../../../Assets/Images/ping.png"));
 		const canvas = createCanvas(400, 400);
 		const ctx = canvas.getContext("2d");
 
