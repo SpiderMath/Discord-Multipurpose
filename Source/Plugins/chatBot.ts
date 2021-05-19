@@ -9,4 +9,5 @@ async function chatBot(message: Message, input: string, uuid = 0o101) {
         message.reply(response.data.response)
     })
 }
-module.exports = chatBot;
+
+export default chatBot;

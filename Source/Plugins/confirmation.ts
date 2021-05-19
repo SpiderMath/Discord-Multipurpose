@@ -15,4 +15,4 @@ async function confirmation(message: Message, author: User, validReactions: any,
         .then((collected: any) => collected.first() && collected.first().emoji.name);
 }
 
-module.exports = confirmation;
+export default confirmation;
