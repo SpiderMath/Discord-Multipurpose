@@ -53,6 +53,12 @@ console.log(Multipurpose.DiscordEmoji.food.apple);
 			- **Parameters**:
 				- avatar *(Type: string | Buffer)*: The image on which you want to apply the effect/filter
 				<img src="/Tests/Image/Sepia.png" alt="Sepia">
+
+		- **greyscale**:
+			- Applies greyscale filter on the image
+			- **Parameters**:
+				- avatar *(Type: string | Buffer)*: The image on which you want to apply the filter
+				<img src="/Tests/Image/greyscale.png" alt="greyscale">
 	- Example
 		```js
 		const Multipurpose = require("discord-multipurpose");
