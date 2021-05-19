@@ -29,7 +29,7 @@ class Image {
      * @default hex2 #ffffff
      * @default mode dark
      */
-    static async fakeReply(avatar1, avatar2, messageText, replyText, username1, username2, hex1 = "#FFFFFF", hex2 = "#FFFFFF", mode = "dark") {
+    static async fakeReply(avatar1, avatar2, replyText, messageText, username1, username2, hex1 = "#FFFFFF", hex2 = "#FFFFFF", mode = "dark") {
         if (!avatar1)
             throw new Error("First avatar was not provided!");
         if (!avatar2)
@@ -65,7 +65,7 @@ class Image {
             ctx.fillStyle = "#000000";
         ctx.textAlign = "left";
         ctx.font = "38px Whitney";
-        await emoji_parser_1.fillTextWithTwemoji(ctx, Shorten_1.default(replyText, 32), 186, 200);
+        await emoji_parser_1.fillTextWithTwemoji(ctx, Shorten_1.default(messageText, 64), 186, 200);
         ctx.font = "38px Whitney";
         ctx.fillStyle = FormatHexCode_1.default(hex1, "#FFFFFF");
         ctx.fillText(username1, 185, 147);
@@ -84,7 +84,7 @@ class Image {
         ctx.font = "29px Whitney";
         ctx.globalAlpha = 0.7;
         ctx.fillStyle = "#d1d1d1";
-        ctx.fillText(Shorten_1.default(messageText, 64), 195 + 20 + 20, 100 + 5 - 20);
+        ctx.fillText(Shorten_1.default(replyText, 64), 195 + 20 + 20, 100 + 5 - 20);
         ctx.strokeStyle = "#a3a2a2";
         ctx.lineWidth = 4;
         ctx.globalAlpha = 0.4;

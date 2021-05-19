@@ -26,7 +26,7 @@ export default class Image {
 	 * @default hex2 #ffffff
 	 * @default mode dark
 	 */
-	public static async fakeReply(avatar1: string, avatar2: string, messageText: string, replyText: string, username1: string, username2: string, hex1: string = "#FFFFFF", hex2: string = "#FFFFFF", mode: "light" | "dark" = "dark") {
+	public static async fakeReply(avatar1: string, avatar2: string, replyText: string, messageText: string, username1: string, username2: string, hex1: string = "#FFFFFF", hex2: string = "#FFFFFF", mode: "light" | "dark" = "dark") {
 
 		if (!avatar1) throw new Error("First avatar was not provided!");
 		if (!avatar2) throw new Error("Second avatar was not provided!");
@@ -56,7 +56,7 @@ export default class Image {
 
 		ctx.font = "38px Whitney";
 
-		await fillTextWithTwemoji(ctx, Shorten(replyText, 32), 186, 200);
+		await fillTextWithTwemoji(ctx, Shorten(messageText, 64), 186, 200);
 
 		ctx.font = "38px Whitney";
 		ctx.fillStyle = FormatHexCode(hex1, "#FFFFFF");
@@ -83,7 +83,7 @@ export default class Image {
 		ctx.font = "29px Whitney";
 		ctx.globalAlpha = 0.7;
 		ctx.fillStyle = "#d1d1d1";
-		ctx.fillText(Shorten(messageText, 64), 195 + 20 + 20, 100 + 5 - 20);
+		ctx.fillText(Shorten(replyText, 64), 195 + 20 + 20, 100 + 5 - 20);
 
 		ctx.strokeStyle = "#a3a2a2";
 		ctx.lineWidth = 4;

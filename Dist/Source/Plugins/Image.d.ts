@@ -14,7 +14,7 @@ export default class Image {
      * @default hex2 #ffffff
      * @default mode dark
      */
-    static fakeReply(avatar1: string, avatar2: string, messageText: string, replyText: string, username1: string, username2: string, hex1?: string, hex2?: string, mode?: "light" | "dark"): Promise<Buffer>;
+    static fakeReply(avatar1: string, avatar2: string, replyText: string, messageText: string, username1: string, username2: string, hex1?: string, hex2?: string, mode?: "light" | "dark"): Promise<Buffer>;
     /**
      * @param avatar The avatar of the user who will be appearing in the ping
      */
