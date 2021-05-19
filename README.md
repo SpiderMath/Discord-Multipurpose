@@ -25,6 +25,7 @@ console.log(DiscordEmoji.food.apple);
 			- Draws a Discord ping across the user's image
 			- **Parameters**: 
 				- avatar *(Type: string | Buffer, Required: true)*: The avatar of the user
+				<imb src="/Tests/Image/Ping.png" alt="Ping">
 
 		- **fakeReply**:
 			- Draws a fake reply yk
