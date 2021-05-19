@@ -13,9 +13,9 @@ That should install the package to your project
 
 - #### Discord Emoji
 ```js
-const { DiscordEmoji } = require("discord-multipurpose");
+const Multipurpose = require("discord-multipurpose");
 
-console.log(DiscordEmoji.food.apple);
+console.log(Multipurpose.DiscordEmoji.food.apple);
 // Logs "🍎"
 ```
 
@@ -43,10 +43,10 @@ console.log(DiscordEmoji.food.apple);
 				<img src="/Tests/Image/FakeReply-dark.png" alt="FakeReply-dark">
 	- Example
 		```js
-		const { Image } = require("discord-multipurpose");
-		const { Client, MessageAttachment } = require("discord.js");
+		const Multipurpose = require("discord-multipurpose");
+		const Discord = require("discord.js");
 
-		const client = new Client();
+		const client = new Discord.Client();
 
 		client.on("ready", () => console.log(`Logged in as ${client.user.tag}!`));
 
@@ -54,7 +54,7 @@ console.log(DiscordEmoji.food.apple);
 			if(message.author.bot) return;
 
 			if(message.content.toLowerCase() === ">ping") {
-				const ping = await Image.ping(message.author.displayAvatarURL({ format: 'png' }));
+				const ping = await Multipurpose.Image.ping(message.author.displayAvatarURL({ format: 'png' }));
 				return message.channel.send(new MessageAttachment(ping, "ping.png"));
 			}
 		});
