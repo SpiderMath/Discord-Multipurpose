@@ -22,6 +22,7 @@ export default class Image {
     /**
      * @param avatar The avatar of the user, whose colour you want to invert
     */
-    static invert(avatar: string): Promise<Buffer>;
+    static invert(avatar: string | Buffer): Promise<Buffer>;
+    static sepia(avatar: string | Buffer): Promise<Buffer>;
 }
 //# sourceMappingURL=Image.d.ts.map

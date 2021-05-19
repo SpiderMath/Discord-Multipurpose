@@ -47,6 +47,12 @@ console.log(Multipurpose.DiscordEmoji.food.apple);
 			- **Parameters**:
 				- avatar *(Type: string | Buffer)*: The image, whose colours you want to invert
 				<img src="/Tests/Image/invert.png" alt="invert">
+
+		- **sepia**:
+			- Applies Sepia effect on to the image
+			- **Parameters**:
+				- avatar *(Type: string | Buffer)*: The image on which you want to apply the effect/filter
+				<img src="/Tests/Image/Sepia.png" alt="Sepia">
 	- Example
 		```js
 		const Multipurpose = require("discord-multipurpose");
