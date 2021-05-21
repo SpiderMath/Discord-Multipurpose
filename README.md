@@ -20,7 +20,7 @@ console.log(Multipurpose.DiscordEmoji.food.apple);
 ```
 
 - #### Discord Image Manipulation
-	- You need `canvas` installed to use these functions, discord.js is not required for these. If you are on Windows and have never used canvas previously, you will probably need to install `windows-build-tools` using `npm i -g windows-build-tools` along with GTK-2 & Python. Refer to [this](https://www.npmjs.com/package/canvas) for further information
+	- **⚠ You need `canvas` installed to use these functions, discord.js is not required for these. If you are on Windows and have never used canvas previously, you will probably need to install `windows-build-tools` using `npm i -g windows-build-tools` along with GTK-2 & Python. Refer to [this](https://www.npmjs.com/package/canvas) for further information ⚠**
 	- Methods
 		- **ping**: 
 			- Draws a Discord ping across the user's image
