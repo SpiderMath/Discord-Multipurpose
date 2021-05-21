@@ -31,5 +31,9 @@ export default class Image {
      * @param avatar The image on which you want to apply the filter
     */
     static greyscale(avatar: string | Buffer): Promise<Buffer>;
+    /**
+     * @param avatar The image which you want to blur
+    */
+    static blur(avatar: string | Buffer): Promise<Buffer>;
 }
 //# sourceMappingURL=Image.d.ts.map

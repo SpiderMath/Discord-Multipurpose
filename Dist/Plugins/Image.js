@@ -9,7 +9,7 @@ const emoji_parser_1 = require("@canvacord/emoji-parser");
 const Shorten_1 = __importDefault(require("../Util/Image/Shorten"));
 const FormatHexCode_1 = __importDefault(require("../Util/Image/FormatHexCode"));
 const GetDiscordTime_1 = __importDefault(require("../Util/Image/GetDiscordTime"));
-canvas_1.registerFont(path_1.join(__dirname, "../../../Assets/Fonts/WHITNEY_MEDIUM.otf"), {
+canvas_1.registerFont(path_1.join(__dirname, "../../Assets/Fonts/WHITNEY_MEDIUM.otf"), {
     family: "Whitney",
     weight: "regular",
     style: "Normal",
@@ -125,7 +125,7 @@ class Image {
         if (!avatar)
             throw new Error("avatar not provided");
         const image = await canvas_1.loadImage(avatar);
-        const pongy = await canvas_1.loadImage(path_1.join(__dirname, "../../../Assets/Images/ping.png"));
+        const pongy = await canvas_1.loadImage(path_1.join(__dirname, "../../Assets/Images/ping.png"));
         const canvas = canvas_1.createCanvas(400, 400);
         const ctx = canvas.getContext("2d");
         ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
@@ -189,6 +189,22 @@ class Image {
             imgData.data[i + 2] = brightness;
         }
         ctx.putImageData(imgData, 0, 0);
+        return canvas.toBuffer();
+    }
+    /**
+     * @param avatar The image which you want to blur
+    */
+    static async blur(avatar) {
+        if (!avatar)
+            throw new Error("avatar not provided");
+        const image = await canvas_1.loadImage(avatar);
+        const canvas = canvas_1.createCanvas(image.width, image.height);
+        const ctx = canvas.getContext("2d");
+        ctx.fillStyle = "#ffffff";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.drawImage(image, 0, 0, canvas.width / 4, canvas.height / 4);
+        ctx.imageSmoothingEnabled = true;
+        ctx.drawImage(canvas, 0, 0, canvas.width / 4, canvas.height / 4, 0, 0, canvas.width + 5, canvas.height + 5);
         return canvas.toBuffer();
     }
 }

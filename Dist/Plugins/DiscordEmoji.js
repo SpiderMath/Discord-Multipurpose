@@ -1,4 +1,6 @@
-{
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const DiscordEmoji = {
     "people": {
         "grinning": "😀",
         "smiley": "😃",
@@ -2899,7 +2901,7 @@
         "eyeglasses": "👓",
         "dark_sunglasses": "🕶️",
         "goggles": "🥽",
-        "closed_umbrella": "🌂"
+        "closed_umbrella": "🌂",
     },
     "nature": {
         "dog": "🐶",
@@ -3116,7 +3118,7 @@
         "umbrella": "☔",
         "umbrella2": "☂️",
         "ocean": "🌊",
-        "fog": "🌫️"
+        "fog": "🌫️",
     },
     "food": {
         "green_apple": "🍏",
@@ -3255,7 +3257,7 @@
         "bowl_with_spoon": "🥣",
         "takeout_box": "🥡",
         "chopsticks": "🥢",
-        "salt": "🧂"
+        "salt": "🧂",
     },
     "activity": {
         "soccer": "⚽",
@@ -3855,7 +3857,7 @@
         "bowling": "🎳",
         "video_game": "🎮",
         "slot_machine": "🎰",
-        "jigsaw": "🧩"
+        "jigsaw": "🧩",
     },
     "travel": {
         "red_car": "🚗",
@@ -4001,7 +4003,7 @@
         "night_with_stars": "🌃",
         "milky_way": "🌌",
         "bridge_at_night": "🌉",
-        "foggy": "🌁"
+        "foggy": "🌁",
     },
     "objects": {
         "watch": "⌚",
@@ -4268,7 +4270,7 @@
         "lock_with_ink_pen": "🔏",
         "closed_lock_with_key": "🔐",
         "lock": "🔒",
-        "unlock": "🔓"
+        "unlock": "🔓",
     },
     "symbols": {
         "100": "💯",
@@ -4605,7 +4607,7 @@
         "regional_indicator_d": "🇩",
         "regional_indicator_c": "🇨",
         "regional_indicator_b": "🇧",
-        "regional_indicator_a": "🇦"
+        "regional_indicator_a": "🇦",
     },
     "flags": {
         "flag_white": "🏳️",
@@ -4877,6 +4879,8 @@
         "flag_sj": "🇸🇯",
         "flag_ta": "🇹🇦",
         "flag_um": "🇺🇲",
-        "united_nations": "🇺🇳"
-    }
-}
+        "united_nations": "🇺🇳",
+    },
+};
+exports.default = DiscordEmoji;
+//# sourceMappingURL=DiscordEmoji.js.map
