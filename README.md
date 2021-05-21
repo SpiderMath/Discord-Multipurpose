@@ -85,8 +85,21 @@ console.log(Multipurpose.DiscordEmoji.food.apple);
 		});
 		```
 
+- #### Discord Util
+	- Works only for [Discord.js](https://discord.js.org) bots, you need it installed to use these methods
+	- Methods
+		- **paginateEmbed**:
+			- Paginate your Embeds using reactions!
+			- **Parameters**
+				- msg *(Type: Message, required: true)*: The message object, which you get from the Message Event
+				- pages *(Type: MessageEmbed[], required: true)* :An array of MessageEmbeds, which you want to be in list
+				- emojiList *(Type: string[])*: An array of left & right arrows, emojiList[0] is left arrow & emojiList[1] is the right arrow. Default: `["⏪", "⏩"]`
+				- timeout *(Type: number)*: The time for which the pagination will be active (in miliseconds)
+				Default: `120000`ms (2 minutes)
 
 # Post Script
-> ### ℹ️ Contact me at `SpiderBro#8604`
+> ℹ️ Contact me at `SpiderBro#8604`
 
 > Feel free to make an issue or a PR in the GitHub [Repository](https://github.com/SpiderMath/Discord-Multipurpose)
+
+> Credits to [Dr. Time™](https://github.com/Rubayz) & [Conqueror](https://github.com/hasib-rashid) for contributing!
