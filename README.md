@@ -100,6 +100,20 @@ console.log(Multipurpose.DiscordEmoji.food.apple);
 
 				<img src="/Tests/DiscordUtil/paginateEmbed_Sample.gif" alt="PaginateEmbed Sample">
 
+		- **confirmation**:
+			- Get the confirmation from the user on an action
+			- **Parameters**
+				- msg *(Type: Message, required: true)*: The message which you want to be reacted upon
+				- author *(Type: User, required: true)*: The user whose confirmation is needed
+				- validReactions *(Type: string[], required: false, length: 2)*: The emojis for yes and no. validReactions[0] has to be the one for yes & validReactions[1] has to be the one for no
+				*Default: ["✔", "❌"]*
+				- time *(Type: number, required: false)*: The time for which you want to wait for the reactions (in miliseconds)
+				*Default: `60000`ms (1 minute)*
+				- defaultResponse *(Type: boolean, required: false)*: The result which you want to get if the user does not respond.
+				*Default: false*
+			- **⚠ The following example shows an implementation of a command which works on using this function**
+				<img src="/Tests/DiscordUtil/Confirmation_Sample.gif" alt="Confirmation Sample">
+
 # Post Script
 > ℹ️ Contact me at `SpiderBro#8604`
 
