@@ -9,7 +9,7 @@ const emoji_parser_1 = require("@canvacord/emoji-parser");
 const Shorten_1 = __importDefault(require("../Util/Image/Shorten"));
 const FormatHexCode_1 = __importDefault(require("../Util/Image/FormatHexCode"));
 const GetDiscordTime_1 = __importDefault(require("../Util/Image/GetDiscordTime"));
-canvas_1.registerFont(path_1.join(__dirname, "../../../Assets/Fonts/WHITNEY_MEDIUM.otf"), {
+canvas_1.registerFont(path_1.join(__dirname, "../../Assets/Fonts/WHITNEY_MEDIUM.otf"), {
     family: "Whitney",
     weight: "regular",
     style: "Normal",
@@ -29,7 +29,7 @@ class Image {
      * @default hex2 #ffffff
      * @default mode dark
      */
-    static async fakeReply(avatar1, avatar2, messageText, replyText, username1, username2, hex1 = "#FFFFFF", hex2 = "#FFFFFF", mode = "dark") {
+    static async fakeReply(avatar1, avatar2, replyText, messageText, username1, username2, hex1 = "#FFFFFF", hex2 = "#FFFFFF", mode = "dark") {
         if (!avatar1)
             throw new Error("First avatar was not provided!");
         if (!avatar2)
@@ -65,7 +65,7 @@ class Image {
             ctx.fillStyle = "#000000";
         ctx.textAlign = "left";
         ctx.font = "38px Whitney";
-        await emoji_parser_1.fillTextWithTwemoji(ctx, Shorten_1.default(replyText, 32), 186, 200);
+        await emoji_parser_1.fillTextWithTwemoji(ctx, Shorten_1.default(messageText, 64), 186, 200);
         ctx.font = "38px Whitney";
         ctx.fillStyle = FormatHexCode_1.default(hex1, "#FFFFFF");
         ctx.fillText(username1, 185, 147);
@@ -84,7 +84,7 @@ class Image {
         ctx.font = "29px Whitney";
         ctx.globalAlpha = 0.7;
         ctx.fillStyle = "#d1d1d1";
-        ctx.fillText(Shorten_1.default(messageText, 64), 195 + 20 + 20, 100 + 5 - 20);
+        ctx.fillText(Shorten_1.default(replyText, 64), 195 + 20 + 20, 100 + 5 - 20);
         ctx.strokeStyle = "#a3a2a2";
         ctx.lineWidth = 4;
         ctx.globalAlpha = 0.4;
@@ -125,11 +125,86 @@ class Image {
         if (!avatar)
             throw new Error("avatar not provided");
         const image = await canvas_1.loadImage(avatar);
-        const pongy = await canvas_1.loadImage(path_1.join(__dirname, "../../../Assets/Images/ping.png"));
+        const pongy = await canvas_1.loadImage(path_1.join(__dirname, "../../Assets/Images/ping.png"));
         const canvas = canvas_1.createCanvas(400, 400);
         const ctx = canvas.getContext("2d");
         ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
         ctx.drawImage(pongy, 0, 0, canvas.width, canvas.height);
+        return canvas.toBuffer();
+    }
+    /**
+     * @param avatar The avatar of the user, whose colour you want to invert
+    */
+    static async invert(avatar) {
+        if (!avatar)
+            throw new Error("avatar not provided");
+        const image = await canvas_1.loadImage(avatar);
+        const canvas = canvas_1.createCanvas(image.width, image.height);
+        const ctx = canvas.getContext("2d");
+        ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
+        const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        for (let i = 0; i < imgData.data.length; i += 4) {
+            imgData.data[i] = 255 - imgData.data[i];
+            imgData.data[i + 1] = 255 - imgData.data[i + 1];
+            imgData.data[i + 2] = 255 - imgData.data[i + 2];
+            imgData.data[i + 3] = 255;
+        }
+        ctx.putImageData(imgData, 0, 0);
+        return canvas.toBuffer();
+    }
+    /**
+     * @param avatar The image on which you want to apply the filter
+     */
+    static async sepia(avatar) {
+        if (!avatar)
+            throw new Error("avatar not provided");
+        const image = await canvas_1.loadImage(avatar);
+        const canvas = canvas_1.createCanvas(image.width, image.height);
+        const ctx = canvas.getContext("2d");
+        ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
+        const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        for (let i = 0; i < imgData.data.length; i += 4) {
+            imgData.data[i] = imgData.data[i] * 0.393 + imgData.data[i + 1] * 0.769 + imgData.data[i + 2] * 0.189;
+            imgData.data[i + 1] = imgData.data[i] * 0.349 + imgData.data[i + 1] * 0.686 + imgData.data[i + 2] * 0.168;
+            imgData.data[i + 2] = imgData.data[i] * 0.272 + imgData.data[i + 1] * 0.534 + imgData.data[i + 2] * 0.131;
+        }
+        ctx.putImageData(imgData, 0, 0);
+        return canvas.toBuffer();
+    }
+    /**
+     * @param avatar The image on which you want to apply the filter
+    */
+    static async greyscale(avatar) {
+        if (!avatar)
+            throw new Error("avatar not provided");
+        const image = await canvas_1.loadImage(avatar);
+        const canvas = canvas_1.createCanvas(image.width, image.height);
+        const ctx = canvas.getContext("2d");
+        ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
+        const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        for (let i = 0; i < imgData.data.length; i += 4) {
+            const brightness = 0.34 * imgData.data[i] + 0.5 * imgData.data[i + 1] + 0.16 * imgData.data[i + 2];
+            imgData.data[i] = brightness;
+            imgData.data[i + 1] = brightness;
+            imgData.data[i + 2] = brightness;
+        }
+        ctx.putImageData(imgData, 0, 0);
+        return canvas.toBuffer();
+    }
+    /**
+     * @param avatar The image which you want to blur
+    */
+    static async blur(avatar) {
+        if (!avatar)
+            throw new Error("avatar not provided");
+        const image = await canvas_1.loadImage(avatar);
+        const canvas = canvas_1.createCanvas(image.width, image.height);
+        const ctx = canvas.getContext("2d");
+        ctx.fillStyle = "#ffffff";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.drawImage(image, 0, 0, canvas.width / 4, canvas.height / 4);
+        ctx.imageSmoothingEnabled = true;
+        ctx.drawImage(canvas, 0, 0, canvas.width / 4, canvas.height / 4, 0, 0, canvas.width + 5, canvas.height + 5);
         return canvas.toBuffer();
     }
 }
