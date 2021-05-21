@@ -59,6 +59,12 @@ console.log(Multipurpose.DiscordEmoji.food.apple);
 			- **Parameters**:
 				- avatar *(Type: string | Buffer)*: The image on which you want to apply the filter
 				<img src="/Tests/Image/greyscale.png" alt="greyscale">
+
+		- **blur**:
+			- Blurs an Image
+			- **Parameters**:
+				- avatar *(Type: string | Buffer)*: The image which you want to blur
+				<img src="/Tests/Image/blur.png" alt="blur">
 	- Example
 		```js
 		const Multipurpose = require("discord-multipurpose");
