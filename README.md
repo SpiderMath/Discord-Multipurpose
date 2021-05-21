@@ -96,6 +96,8 @@ console.log(Multipurpose.DiscordEmoji.food.apple);
 				- emojiList *(Type: string[])*: An array of left & right arrows, emojiList[0] is left arrow & emojiList[1] is the right arrow. Default: `["⏪", "⏩"]`
 				- timeout *(Type: number)*: The time for which the pagination will be active (in miliseconds)
 				Default: `120000`ms (2 minutes)
+			- **⚠ The following example is only there to show how it works, you need to code the commands, you can check the code of the concerned command [here](https://github.com/SpiderMath/Intrepid/blob/cd9dfd6e41d74ba4dbe678c937f5b32b95942d09/Source/Commands/Developer/MDNSearchCommand.ts). You only get the reaction menu feature. ⚠**
+				<img src="/Tests/DiscordUtil/paginateEmbed_Sample.gif" alt="PaginateEmbed Sample">
 
 # Post Script
 > ℹ️ Contact me at `SpiderBro#8604`
