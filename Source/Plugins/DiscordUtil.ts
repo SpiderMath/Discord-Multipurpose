@@ -1,4 +1,4 @@
-import { Message, MessageEmbed } from "discord.js";
+import { Message, MessageEmbed, MessageReaction, User } from "discord.js";
 
 export default class DiscordUtil {
 	/**
@@ -49,4 +49,43 @@ export default class DiscordUtil {
 		});
 		return curPage;
 	};
+
+	/**
+	 * @param message The message object, which you get from the command
+	 * @param author The user whose confirmation you want
+	 * @param validReactions The list of validReactions, validReactions[0] = accept & validReactions[1] = deny
+	 * @param time The time for which you want to wait (in ms)
+	 * @param defaultResponse The default response which you want when the user doesn't response [Boolean]
+	 * @default time 60*1000
+	 * @default validReactions ["✔", "❌"]
+	 * @default defaultResponse false
+	 */
+	static async confirmation(message: Message, author: User, validReactions: string[] = ["✔", "❌"], time: number = 60 * 1000, defaultResponse: boolean = false) {
+		if(message.guild && !message.guild.me?.hasPermission("ADD_REACTIONS")) throw new Error("The bot needs to have the permission 'ADD_REACTIONS' to execute this function!");
+		if(typeof defaultResponse !== "boolean") throw new TypeError(`Expected defaultResponse to be boolean, received ${typeof defaultResponse}`);
+
+		if(validReactions.length !== 2) throw new Error(`Expected 2 emojis in array of validReactions, received ${validReactions.length}`);
+
+		const names: string[] = [];
+
+		validReactions
+			.forEach(str => {
+				if(str.trim().length > 1) { names.push(str.split(/:/g)[1]); }
+				else { names.push(str.trim()); }
+			});
+
+		let result: boolean = defaultResponse;
+
+		for(const reaction of validReactions) await message.react(reaction);
+
+		const response = await message
+			.awaitReactions((reaction: MessageReaction, user: User) => names.includes(reaction.emoji.name) && user.id === author.id, {
+				max: 1,
+				time,
+			});
+
+		if(response.first()) result = names[0] === response.first()?.emoji.name;
+
+		return result;
+	}
 };
