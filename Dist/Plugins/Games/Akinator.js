@@ -1,176 +1,162 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 const aki_api_ts_1 = require("aki-api.ts");
 const common_tags_1 = require("common-tags");
 const discord_js_1 = require("discord.js");
-const DiscordUtil_1 = __importDefault(require("../DiscordUtil"));
 class Akinator {
-    constructor(message, region = "en", validReactions = ["✔", "❌"], akiEmojis = {
-        yes: "👍",
-        no: "👎",
-        idk: "🤷",
-        probably: "🤔",
-        probablyNot: "🙄",
-        previous: "👈",
-    }) {
-        this.count = 0;
-        this.guessCount = 0;
-        if (!message)
-            throw new Error("message not provided!");
+    constructor(message, region = "en") {
         if (!aki_api_ts_1.regions.includes(region.toLowerCase()))
-            throw new TypeError(`Region has to be any of the following types: \n${aki_api_ts_1.regions.join(", ")}\n Received ${region} instead`);
-        if (validReactions.length !== 2)
-            throw new Error(`Expected length of validReactions to be 2, received ${validReactions.length}`);
-        if (message.guild && !message.guild?.me?.hasPermission("ADD_REACTIONS"))
-            throw new Error("Bot requires ADD_REACTIONS permission to use this module!");
-        let childMode;
+            throw new Error("The region is not valid!");
         // @ts-ignore
-        if (message.guild)
-            childMode = message.channel.nsfw;
-        else
-            childMode = false;
+        if (message.guild && !message.channel.permissionsFor(message.client.user).has("EMBED_LINKS"))
+            throw new Error("The bot needs 'EMBED_LINKS' permissions to execute this module");
         // @ts-ignore
-        this.region = region.toLowerCase();
+        this.aki = new aki_api_ts_1.Aki(region, message.guild && message.channel.nsfw);
         this.message = message;
-        this.aki = new aki_api_ts_1.Aki(this.region, childMode);
-        this.baseEmbed = () => {
-            return new discord_js_1.MessageEmbed()
-                .setAuthor(message.author.tag, message.author.displayAvatarURL() || message.author.defaultAvatarURL)
-                .setTitle("Akinator");
-        };
-        this.validReactions = validReactions;
-        this.AkiEmojis = akiEmojis;
     }
-    async start() {
-        this.msg = await this.message.channel.send(this
-            .baseEmbed()
-            .setColor("YELLOW")
-            .setDescription("Are you sure that you want to start the game of Akinator?"));
-        const confirmationBool = await DiscordUtil_1.default.confirmation(this.msg, this.message.author, this.validReactions);
-        if (!confirmationBool) {
-            return this.msg.edit(this
-                .baseEmbed()
-                .setColor("RED")
-                .setDescription("Either the user did not respond, or the user declined the request"));
-        }
-        await this.msg.edit(this
-            .baseEmbed()
-            .setColor("GREEN")
-            .setDescription("Request accepted, starting the game..."));
-        await this.aki.start();
-        await this.run();
+    async verify() {
+        const yes = ["yes", "y", "ye", "yeah", "yep", "yup", "yea"];
+        const no = ["no", "n", "nope", "nah", "never", "nop"];
+        const verify = await this.message.channel.awaitMessages((res) => res.author.id === this.message.author.id && (yes.includes(res.content.toLowerCase()) || no.includes(res.content.toLowerCase())), {
+            max: 1,
+            time: 60 * 1000,
+        });
+        if (!verify.size)
+            return 0;
+        // @ts-ignore
+        if (yes.includes(verify.first()?.content.toLowerCase()))
+            return true;
+        return false;
     }
     async run() {
-        this.count++;
-        const emojiArr = Object.values(this.AkiEmojis);
-        const emojiNameArr = emojiArr
-            .map((str) => (str.length > 2) ? str.split(":")[1] : str);
-        if (this.msg.embeds[0].description === "Request accepted, starting the game...") {
-            await this.msg.delete();
-            this.msg = await this.message.channel.send(this
-                .baseEmbed()
-                .setColor("GREEN")
-                .addField(`Question ${this.count}`, this.aki.question)
-                .addField("Answers", common_tags_1.stripIndents `
-						Please react to this message to proceed
-						${emojiArr.map(emoji => `${emoji}: ${this.aki.answers[emojiArr.indexOf(emoji)] || "Back"}`).join("\n")}
-						Please wait for all the reactions to load to react
-					`)
-                .setFooter(`Progress: ${this.aki.progress}%`));
-        }
-        else {
-            this.msg = await this.msg.edit(this
-                .baseEmbed()
-                .setColor("GREEN")
-                .addField(`Question ${this.count}`, this.aki.question)
-                .addField("Answers", common_tags_1.stripIndents `
-						Please react to this message to proceed
-						${emojiArr.map(emoji => `${emoji}: ${this.aki.answers[emojiArr.indexOf(emoji)] || "Back"}`).join("\n")}
-					`)
-                .setFooter(`Progress: ${this.aki.progress}%`));
-        }
-        if (this.count === 1) {
-            for (const reaction of emojiArr)
-                await this.msg.react(reaction);
-        }
-        const response = await this
-            .msg
-            .awaitReactions((reaction, user) => emojiNameArr.includes(reaction.emoji.name) && user.id === this.message.author.id, {
-            max: 1,
-            time: 60 * 1000,
-        });
-        if (!response.first())
-            return this.message.channel.send("Game timed out");
-        // @ts-ignore
-        const id = emojiNameArr.indexOf(response.first()?.emoji.name);
-        if (id === 5)
-            await this.aki.back();
-        else
-            await this.aki.step(id);
-        if (this.aki.progress >= 70 || this.aki.currentStep >= 78) {
-            this.i = 0;
-            await this.aki.win();
-            return this.win();
-        }
-        this.run();
-    }
-    async win() {
-        const answer = this.aki.answers[0];
-        if (this.guessCount === 5) {
-            return this
-                .msg
-                .edit(this
-                .baseEmbed()
-                .setColor("GREEN")
-                .setDescription("You win! I could not guess your character!"));
-        }
-        this.msg = await this
-            .message
-            .channel
-            .send(this
-            .baseEmbed()
-            .setColor("YELLOW")
-            .setTitle(`Akinator Guess: ${this.guessCount + 1}`)
-            .setDescription(common_tags_1.stripIndents `
-							Is this the character you were thinking of?
-							**Name**: ${answer.name}
-							**Description**: ${answer.description}
-						`)
-            .setImage(answer.absolute_picture_path));
-        for (const reaction of this.validReactions)
-            await this.msg.react(reaction);
-        const resp = await this.msg.awaitReactions((reaction, user) => this.validReactions.map((str) => str.length > 1 ? str.split(/:/g)[1] : str).includes(reaction.emoji.name) && user.id === this.message.author.id, {
-            max: 1,
-            time: 60 * 1000,
-        });
-        if (!resp.first()) {
-            return this
-                .msg
-                .edit(this
-                .baseEmbed()
-                .setColor("GREEN")
-                .setDescription("Since I received no response, I guess I win!"));
-        }
-        if (this.validReactions.map((str) => str.length > 1 ? str.split(/:/g)[1] : str)[0] === resp.first()?.emoji.name) {
-            return this
-                .msg
-                .edit(this
-                .baseEmbed()
-                .setColor("GREEN")
-                .setDescription("I guess I win again!"));
-        }
-        else {
-            // eslint-disable-next-line
-            if (this.guessCount === 5)
-                this.win();
+        let ans = null;
+        let win = false;
+        let timesGuessed = 0;
+        let guessResetNum = 0;
+        let wentBack = false;
+        let forceGuess = false;
+        const guessBlackList = [];
+        while (timesGuessed < 3) {
+            if (guessResetNum > 0)
+                guessResetNum--;
+            if (ans === null) {
+                await this.aki.start();
+            }
+            else if (wentBack) {
+                wentBack = false;
+            }
             else {
-                this.guessCount++;
-                this.run();
+                try {
+                    await this.aki.step(ans);
+                }
+                catch (err) {
+                    await this.aki.step(ans);
+                }
+            }
+            if (!this.aki.answers || this.aki.currentStep >= 79)
+                forceGuess = true;
+            const answers = this.aki.answers.map((answer) => answer.toLowerCase());
+            answers.push("end");
+            if (this.aki.currentStep > 0)
+                answers.push("back");
+            await this.message.channel.send(new discord_js_1.MessageEmbed()
+                .setColor("YELLOW")
+                .setAuthor(this.message.author.tag, this.message.author.displayAvatarURL() || this.message.author.defaultAvatarURL)
+                .setTitle("Akinator")
+                .addField(`Question ${this.aki.currentStep + 1}`, this.aki.question)
+                .addField("Answers", `**${this.aki.answers.map((answer) => {
+                if (answer.split(" ").length === 1)
+                    return `[${answer.split("")[0]}]${answer.slice(1)}`;
+                return `[${answer.split(" ").map((str) => str.split("")[0]).join("").toUpperCase()}] ${answer}`;
+            }).join(" | ")}${this.aki.currentStep > 0 ? " | [B]ack " : ""} | [E]nd**`));
+            const messages = await this.message.channel.awaitMessages((res) => (res.author.id === this.message.author.id) && (answers.map(str => str.split("")[0].toLowerCase()).includes(res.content.toLowerCase())), {
+                max: 1,
+                time: 60 * 1000,
+            });
+            if (!messages.size) {
+                await this.message.channel.send("The game has timed out due to inactivity");
+                win = true;
+                break;
+            }
+            const pick = messages.first()?.content.toLowerCase();
+            if (pick === "e") {
+                forceGuess = true;
+            }
+            else if (pick === "back") {
+                wentBack = true;
+                await this.aki.back();
+                continue;
+            }
+            else {
+                ans = answers.map(str => {
+                    if (str.split(" ").length === 1)
+                        return str.split("")[0].toLowerCase();
+                    return str.split(" ").map(s => s.split("")[0]).join("").toLowerCase();
+                })
+                    // @ts-ignore
+                    .indexOf(pick);
+            }
+            if ((this.aki.progress >= 90 && !guessResetNum) || forceGuess) {
+                timesGuessed++;
+                guessResetNum += 10;
+                await this.aki.win();
+                const guess = this.aki.answers.filter((g) => !guessBlackList.includes(g.id))[0];
+                if (!guess) {
+                    this.message.channel.send("I cannot think of anyone... ");
+                    win = true;
+                    break;
+                }
+                guessBlackList.push(guess.id);
+                await this.message.channel.send(new discord_js_1.MessageEmbed()
+                    .setTitle(forceGuess ? "Final Guess" : `Guess Number: ${timesGuessed + 1}`)
+                    .setColor("RANDOM")
+                    .setAuthor(this.message.author.tag, this.message.author.displayAvatarURL())
+                    .setDescription(common_tags_1.stripIndents `
+							I am ${Math.round(guess.proba * 100)}% sure that your character is:
+							**Name:** ${guess.name}
+							${guess.description ? `**Description:** ${guess.description}` : ""}
+
+							Please respond with [Y]es or [N]o to continue
+						`)
+                    .setThumbnail(guess.absolute_picture_path || null));
+                const verification = await this.verify();
+                if (verification === 0) {
+                    // @ts-ignore
+                    win = "time";
+                    break;
+                }
+                else if (verification) {
+                    win = false;
+                    break;
+                }
+                else {
+                    await this.message.channel.send(new discord_js_1.MessageEmbed()
+                        .setColor("RED")
+                        .setAuthor(this.message.author.tag, this.message.author.displayAvatarURL() || this.message.author.defaultAvatarURL)
+                        .setTitle("Akinator")
+                        .setDescription(`🤔 Hmm, is that so? ${(forceGuess || timesGuessed >= 3) ? "I give up!" : "I can keep going!"}`));
+                    if (timesGuessed >= 3 || forceGuess) {
+                        win = true;
+                        break;
+                    }
+                }
             }
         }
+        // @ts-ignore
+        if (win === "time")
+            return this.message.channel.send("Your silence has led me to the conclusion that I won");
+        if (win) {
+            return this.message.channel.send(new discord_js_1.MessageEmbed()
+                .setColor("GREEN")
+                .setTitle("Akinator")
+                .setTimestamp()
+                .setDescription("You've defeated me this time"));
+        }
+        return this.message.channel.send(new discord_js_1.MessageEmbed()
+            .setColor("GREEN")
+            .setTitle("Akinator")
+            .setTimestamp()
+            .setDescription("This time, I win. Better luck next time!"));
     }
 }
 exports.default = Akinator;
