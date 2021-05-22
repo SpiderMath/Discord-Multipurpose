@@ -114,6 +114,19 @@ console.log(Multipurpose.DiscordEmoji.food.apple);
 			- **⚠ The following example shows an implementation of a command which works on using this function**
 				<img src="/Tests/DiscordUtil/Confirmation_Sample.gif" alt="Confirmation Sample">
 
+
+- #### Minigames
+	- This feature is only for `Discord.js` Bots
+	- Subclasses
+		- Akinator
+			- Constructor: (
+				message -> *Type: Message, required: true*,
+				region -> *Type: Region, required: false, you'll see the options in the intellisense 🤫, default: `"en"`*
+			)
+			- start method starts the Minigame
+			- #### ⚠ Requires `Embed Links` permission to run, and there are instances when Aki-API might send errors, so it is suggested that you put it in a try catch block.
+
+
 # Post Script
 > ℹ️ Contact me at `SpiderBro#8604`
 
