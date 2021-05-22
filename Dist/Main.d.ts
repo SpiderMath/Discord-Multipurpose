@@ -1,5 +1,6 @@
 import DiscordEmoji from "./Plugins/DiscordEmoji";
 import Image from "./Plugins/Image";
 import DiscordUtil from "./Plugins/DiscordUtil";
-export { Image, DiscordEmoji, DiscordUtil, };
+import Minigames from "./Plugins/Minigames";
+export { Image, DiscordEmoji, DiscordUtil, Minigames, };
 //# sourceMappingURL=Main.d.ts.map
