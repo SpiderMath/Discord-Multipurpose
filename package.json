@@ -1,8 +1,8 @@
 {
   "name": "discord-multipurpose",
-  "version": "2.1.5",
+  "version": "2.1.13",
   "description": "A simple package to help in your discord.js needs!",
-  "main": "./Dist/Source/Main.js",
+  "main": "./Dist/Main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -33,7 +33,12 @@
     "discord.js": "^12.5.3"
   },
   "files": [
-    "Dist/**/*/",
+    "Dist/**/*.d.ts",
+    "Dist/**/*.js",
+    "Dist/**/*.map",
+    "Dist/*.js",
+    "Dist/*.d.ts",
+    "Dist/*.map",
     "tsconfig.json",
     "Assets/**/*"
   ]
