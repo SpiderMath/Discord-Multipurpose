@@ -243,4 +243,21 @@ export default class Image {
 
 		return canvas.toBuffer();
 	}
+
+	/**
+	 * @param avatar The image which you want to be 'drip'ed
+	 */
+	public static async drip(avatar: string | Buffer) {
+		if(!avatar) throw new Error("avatar not provided");
+
+		const image = await loadImage(avatar);
+		const base = await loadImage(join(__dirname, "../../Assets/Images/drip.jpg"));
+		const canvas = createCanvas(base.width, base.height);
+		const ctx = canvas.getContext("2d");
+
+		ctx.drawImage(base, 0, 0, canvas.width, canvas.height);
+		ctx.drawImage(image, 350, 150, 205, 205);
+
+		return canvas.toBuffer();
+	}
 };
