@@ -79,14 +79,28 @@ export default class Akinator {
 					}${this.aki.currentStep > 0 ? " | [B]ack " : ""} | [E]nd**`),
 			);
 
-			const messages = await this.message.channel.awaitMessages((res: Message) => (res.author.id === this.message.author.id) && (answers.map(str => str.split("")[0].toLowerCase()).includes(res.content.toLowerCase())), {
+			const filter = (res: Message) => {
+				return (
+					(res.author.id === this.message.author.id) &&
+					(answers
+						.map(str => {
+							return str
+								.split(" ")
+								.map(s => s.split("")[0].toLowerCase())
+								.join("");
+						})
+						.includes(res.content.toLowerCase()))
+				);
+			};
+
+			const messages = await this.message.channel.awaitMessages(filter, {
 				max: 1,
 				time: 60 * 1000,
 			});
 
 			if(!messages.size) {
 				await this.message.channel.send("The game has timed out due to inactivity");
-				win = true;
+				win = false;
 				break;
 			}
 			const pick = messages.first()?.content.toLowerCase();
@@ -94,7 +108,7 @@ export default class Akinator {
 			if(pick === "e") {
 				forceGuess = true;
 			}
-			else if(pick === "back") {
+			else if(pick === "b") {
 				wentBack = true;
 				await this.aki.back();
 				continue;

@@ -1,6 +1,6 @@
 {
   "name": "discord-multipurpose",
-  "version": "2.1.13",
+  "version": "2.1.14",
   "description": "A simple package to help in your discord.js needs!",
   "main": "./Dist/Main.js",
   "scripts": {
