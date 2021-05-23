@@ -66,6 +66,13 @@ console.log(Multipurpose.DiscordEmoji.food.apple);
 			- **Parameters**:
 				- avatar *(Type: string | Buffer)*: The image which you want to blur
 				<img src="/Tests/Image/blur.png" alt="blur">
+
+		- **drip**:
+			- Drip, do I need to explain further? 😎 
+			- **Parameters**:
+				- avatar *(Type: string | Buffer)*: The image which will be Drip's face replacement
+				<img src="/Tests/Image/drip.png" alt="drip">
+
 	- Example
 		```js
 		const Multipurpose = require("discord-multipurpose");
