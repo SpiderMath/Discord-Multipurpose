@@ -41,5 +41,15 @@
     "Dist/*.map",
     "tsconfig.json",
     "Assets/**/*"
+  ],
+  "keywords": [
+    "discord",
+    "discord-minigames",
+    "minigames",
+    "image-manipulation",
+    "canvas",
+    "discord-emoji",
+    "emoji",
+    "discord-util"
   ]
 }
