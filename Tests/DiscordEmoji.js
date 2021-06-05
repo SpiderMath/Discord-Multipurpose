@@ -1,4 +1,4 @@
-const { DiscordEmoji } = require("../Dist/Source/Main");
+const { DiscordEmoji } = require("../Dist/Main");
 
 console.log(DiscordEmoji.food.apple);
 // Successful

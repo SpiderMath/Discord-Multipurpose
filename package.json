@@ -1,8 +1,8 @@
 {
   "name": "discord-multipurpose",
-  "version": "2.0.3",
+  "version": "2.1.14",
   "description": "A simple package to help in your discord.js needs!",
-  "main": "./Dist/Source/Main.js",
+  "main": "./Dist/Main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -17,14 +17,46 @@
   },
   "homepage": "https://github.com/SpiderMath/Discord-Multipurpose#readme",
   "devDependencies": {
+    "@types/common-tags": "^1.8.0",
     "@types/node": "^15.0.3",
     "@typescript-eslint/parser": "^4.23.0",
+    "discord.js": "^12.5.3",
     "eslint": "^7.26.0",
     "typescript": "^4.2.4"
   },
   "dependencies": {
+<<<<<<< HEAD
     "canvacord": "^5.2.0",
     "discord.js": "^12.5.3",
     "node-fetch": "^2.6.1"
   }
+=======
+    "@canvacord/emoji-parser": "^1.0.1",
+    "aki-api.ts": "^1.0.1",
+    "axios": "^0.21.1",
+    "canvas": "^2.8.0",
+    "common-tags": "^1.8.0",
+    "discord.js": "^12.5.3"
+  },
+  "files": [
+    "Dist/**/*.d.ts",
+    "Dist/**/*.js",
+    "Dist/**/*.map",
+    "Dist/*.js",
+    "Dist/*.d.ts",
+    "Dist/*.map",
+    "tsconfig.json",
+    "Assets/**/*"
+  ],
+  "keywords": [
+    "discord",
+    "discord-minigames",
+    "minigames",
+    "image-manipulation",
+    "canvas",
+    "discord-emoji",
+    "emoji",
+    "discord-util"
+  ]
+>>>>>>> a826e8bc66c92a4d1a6f9dac9fdcc19072c6a803
 }
