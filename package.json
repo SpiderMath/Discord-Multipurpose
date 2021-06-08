@@ -28,7 +28,6 @@
     "@canvacord/emoji-parser": "^1.0.1",
     "aki-api.ts": "^1.0.1",
     "axios": "^0.21.1",
-    "canvas": "^2.8.0",
     "common-tags": "^1.8.0"
   },
   "files": [
