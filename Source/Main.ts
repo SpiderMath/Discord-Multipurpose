@@ -1,5 +1,5 @@
 import DiscordEmoji from "./Plugins/DiscordEmoji";
-// import Image from "./Plugins/Image";
+import Image from "./Plugins/Image";
 import DiscordUtil from "./Plugins/DiscordUtil";
 import Minigames from "./Plugins/Minigames";
 import Random from "./Plugins/Random";
