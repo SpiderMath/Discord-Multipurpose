@@ -1,15 +1,12 @@
-import { createCanvas } from "@napi-rs/canvas";
+import { createCanvas, GlobalFonts } from "@napi-rs/canvas";
 import { join } from "path";
 import { fillTextWithTwemoji } from "@canvacord/emoji-parser";
 import Shorten from "../Util/Image/Shorten";
 import FormatHexCode from "../Util/Image/FormatHexCode";
 import GetDiscordTime from "../Util/Image/GetDiscordTime";
+import { loadImage } from "../Util/Image/LoadImage";
 
-registerFont(join(__dirname, "../../Assets/Fonts/WHITNEY_MEDIUM.otf"), {
-	family: "Whitney",
-	weight: "regular",
-	style: "Normal",
-});
+GlobalFonts.register(join(__dirname, "../../Assets/Fonts/WHITNEY_MEDIUM.otf"));
 
 export default class Image {
 	/**
@@ -239,6 +236,7 @@ export default class Image {
 		ctx.fillRect(0, 0, canvas.width, canvas.height);
 		ctx.drawImage(image, 0, 0, canvas.width / 4, canvas.height / 4);
 		ctx.imageSmoothingEnabled = true;
+		// @ts-ignore
 		ctx.drawImage(canvas, 0, 0, canvas.width / 4, canvas.height / 4, 0, 0, canvas.width + 5, canvas.height + 5);
 
 		return await canvas.png();
