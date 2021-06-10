@@ -19,17 +19,18 @@
   "devDependencies": {
     "@types/common-tags": "^1.8.0",
     "@types/node": "^15.0.3",
+    "@types/node-fetch": "^2.5.10",
     "@typescript-eslint/parser": "^4.23.0",
     "discord.js": "^12.5.3",
     "eslint": "^7.26.0",
     "typescript": "^4.2.4"
   },
   "dependencies": {
-    "@canvacord/emoji-parser": "^1.0.1",
     "@napi-rs/canvas": "^0.0.6",
     "aki-api.ts": "^1.0.1",
     "axios": "^0.21.1",
-    "common-tags": "^1.8.0"
+    "common-tags": "^1.8.0",
+    "node-fetch": "^2.6.1"
   },
   "files": [
     "Dist/**/*.d.ts",

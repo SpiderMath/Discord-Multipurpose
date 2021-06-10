@@ -1,6 +1,5 @@
 import { createCanvas, GlobalFonts } from "@napi-rs/canvas";
 import { join } from "path";
-import { fillTextWithTwemoji } from "@canvacord/emoji-parser";
 import Shorten from "../Util/Image/Shorten";
 import FormatHexCode from "../Util/Image/FormatHexCode";
 import GetDiscordTime from "../Util/Image/GetDiscordTime";
@@ -52,8 +51,6 @@ export default class Image {
 		ctx.textAlign = "left";
 
 		ctx.font = "38px Whitney";
-
-		await fillTextWithTwemoji(ctx, Shorten(messageText, 64), 186, 200);
 
 		ctx.font = "38px Whitney";
 		ctx.fillStyle = FormatHexCode(hex1, "#FFFFFF");

@@ -5,7 +5,7 @@ import Minigames from "./Plugins/Minigames";
 import Random from "./Plugins/Random";
 
 export {
-	// Image,
+	Image,
 	DiscordEmoji,
 	DiscordUtil,
 	Minigames,

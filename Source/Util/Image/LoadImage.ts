@@ -1,6 +1,6 @@
 import { Image as SkImage } from "@napi-rs/canvas";
 import { promises as fs, existsSync } from "fs";
-import Axios from "axios";
+import fetch from "node-fetch";
 
 /**
  * Utility function to load images
@@ -12,8 +12,9 @@ export async function loadImage(source: string | Buffer): Promise<SkImage> {
 		return createImage(data);
 	}
 	else if (typeof source === "string") {
-		const res = await Axios.get(source);
+		const res = await fetch(source);
 		if (res.status !== 200) throw new Error(`Server responded with status ${res.status}`);
+		const data = await res.buffer();
 		return createImage(data);
 	}
 	else {
