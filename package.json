@@ -1,0 +1,23 @@
+{
+  "name": "discord-multipurpose",
+  "version": "3.0.0",
+  "description": "An NPM Package for helping in Discord Bot development [discord.js] and other related features!",
+  "main": "./Dist/Multipurpose.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SpiderMath/Discord-Multipurpose.git"
+  },
+  "author": "SpiderMath",
+  "license": "AGPL-3.0",
+  "bugs": {
+    "url": "https://github.com/SpiderMath/Discord-Multipurpose/issues"
+  },
+  "homepage": "https://github.com/SpiderMath/Discord-Multipurpose#readme",
+  "devDependencies": {
+    "@typescript-eslint/parser": "^4.26.1",
+    "eslint": "^7.28.0"
+  }
+}
