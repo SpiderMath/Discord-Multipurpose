@@ -4,7 +4,7 @@
   "description": "A package to aid Discord Bot development [mostly discord.js], contains related utility functions as well",
   "main": "./Dist/Multipurpose.js",
   "scripts": {
-    "docs": "npx typedoc Source/Multipurpose.ts"
+    "docs": "npx typedoc Source/Multipurpose.ts -out Docs"
   },
   "repository": {
     "type": "git",
