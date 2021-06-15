@@ -4,6 +4,9 @@
 		"ecmaVersion": 2021,
 		"sourceType": "module"
 	},
+	"plugins": [
+		"eslint-plugin-tsdoc"
+	],
 	"rules": {
 		"no-unused-vars": "error",
 		"quotes": [
@@ -46,6 +49,7 @@
 		"space-infix-ops": "error",
 		"space-unary-ops": "error",
 		"spaced-comment": "error",
-		"yoda": "error"
+		"yoda": "error",
+		"tsdoc/syntax": "error"
 	}
 }
