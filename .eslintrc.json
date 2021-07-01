@@ -4,9 +4,6 @@
 		"ecmaVersion": 2021,
 		"sourceType": "module"
 	},
-	"plugins": [
-		"eslint-plugin-tsdoc"
-	],
 	"rules": {
 		"no-unused-vars": "error",
 		"quotes": [
